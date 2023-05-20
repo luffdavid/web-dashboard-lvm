@@ -11,7 +11,18 @@ const Stellenanzeigen = () => {
   useEffect(() => {
     fetchStellenanzeigen();
   }, []);
-
+ //GET Stellenanzeigen
+ const fetchStellenanzeigen = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/stellenanzeigen');
+    const data = await response.json();
+setStellenanzeigen(data);
+console.log(data)
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Stellenanzeigen:', error);
+  }
+};
+  // ADD Stellenantzeige (=> POST)
   const handleAddStellenanzeige = async (e) => {
     e.preventDefault();
 
@@ -22,7 +33,6 @@ const Stellenanzeigen = () => {
       aufgaben: aufgaben,
       berufsbezeichnung: berufsbezeichnung
     };
-
     try {
       const response = await fetch('http://localhost:5000/stellenanzeigen', {
         method: 'POST',
@@ -48,19 +58,34 @@ const Stellenanzeigen = () => {
     } 
   };
 
-  const fetchStellenanzeigen = async () => {
+ 
+  
+  //DELETE Stellenanzeige
+  const handleDelete = async (id) => {
     try {
-      const response = await fetch('http://localhost:5000/stellenanzeigen');
+      const response = await fetch(`http://localhost:5000/stellenanzeigen/${id}`, {
+        method: 'DELETE'
+      });
+  
       const data = await response.json();
-  setStellenanzeigen(data);
-console.log(data)
+  
+      if (response.ok) {
+        // Die Stellenanzeige wurde erfolgreich gelöscht
+        // Aktualisiere den State oder führe andere notwendige Aktionen durch
+        console.log('Stellenanzeige erfolgreich gelöscht:', data);
+        fetchStellenanzeigen();
+      } else {
+        // Fehler beim Löschen der Stellenanzeige
+        console.error('Fehler beim Löschen der Stellenanzeige:', data.message);
+      }
     } catch (error) {
-      console.error('Fehler beim Abrufen der Stellenanzeigen:', error);
+      console.error('Fehler beim Löschen der Stellenanzeige:', error);
     }
   };
   
   return (
   <div>
+    {/* ADD Stellenanzeige */}
   <h2>Stellenanzeige hinzufügen</h2>
   <form onSubmit={handleAddStellenanzeige}>
   <label>
@@ -85,9 +110,20 @@ Berufsbezeichnung:
 </label>
 <button type="submit">Stellenanzeige hinzufügen</button>
 </form>
-{stellenanzeigen && stellenanzeigen.map(stellenanzeige => (
-  <div key={stellenanzeige._id}>
-    <h2>{stellenanzeige.title}</h2>
+
+   {/* GET Stellenanzeige */}
+Aktuell geschaltene Stellenanzeigen: <br />
+{stellenanzeigen && stellenanzeigen.map(stellenanzeige => (  <div key={stellenanzeige._id}>
+    <div style={{backgroundColor:'white', borderRadius:'10px', padding:5, marginBottom:'10px'}}>
+     {/* DELETE Stellenanzeige */}
+     <button onClick={() => handleDelete(stellenanzeige._id)}>Löschen</button>
+    
+    <h5>JobTitel:{stellenanzeige.title}</h5>
+    <h5>Berufsbezeichnung:{stellenanzeige.berufsbezeichnung}</h5>
+    <h5>Aufgaben:{stellenanzeige.aufgaben}</h5>
+    <h5>Zeit:{stellenanzeige.arbeitszeit}</h5>
+    <h5>Art:{stellenanzeige.arbeitsart}</h5>
+    </div> 
   </div>
 ))}
 
