@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import Topbar from "./components/Topbar";
 import Home from "./components/Home";
 import {BrowserRouter, Routes, Route, Navigate, useLocation} from 'react-router-dom'
+import Stellenanzeigen from './components/EditPages/Stellenanzeigen';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -27,6 +28,9 @@ function App() {
         <Route
            path="/login"
            element={!isLoggedIn ? <Login/> : <Navigate to="/" />} />
+        <Route
+           path="/stellenanzeigen"
+           element={isLoggedIn ? <Stellenanzeigen /> : <Navigate to="/login" />} />
       </Routes>
       </BrowserRouter>
     </div>

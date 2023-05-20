@@ -2,6 +2,8 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditIcon from '@mui/icons-material/Edit';
+import AddStellenanzeigeForm from './EditPages/Stellenanzeigen';
+import { Link, Navigate } from 'react-router-dom';
 const Home = () => {
   const [loggedOut, setLoggedOut] = useState(false);
 
@@ -11,6 +13,7 @@ const Home = () => {
       borderRadius: '10px',
       padding: '10px 20px',
       marginBottom:'5px'
+
     };
 
   const handleLogout = () => {
@@ -18,6 +21,8 @@ const Home = () => {
     setLoggedOut(true);
     window.location.reload()
   };
+
+  
 
 
   return (
@@ -31,7 +36,9 @@ const Home = () => {
 
       <div>
         <h3>Stellenanzeigen bearbeiten</h3> 
-        <Button style={buttonStyle} endIcon={<AddCircleIcon />}>Stellenanzeigen hinzufügen</Button><br />
+        <Button  style={buttonStyle} endIcon={<AddCircleIcon />}> 
+        <Link to="/stellenanzeigen" >
+        Stellenanzeigen hinzufügen</Link></Button><br />
         <Button style={buttonStyle} endIcon={<EditIcon />}>Stellenanzeigen bearbeiten</Button>
       </div>
 
