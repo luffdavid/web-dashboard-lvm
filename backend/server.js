@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 const homeRoute = require('./routes/home');
 const stellenanzeigenRoute = require('./routes/stellenanzeigen'); // Neuer Import
+const rezensionenRoute = require('./routes/rezensionen'); 
 
 const PORT = 5000;
 // Middleware
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/', homeRoute.router);
 app.use('/stellenanzeigen', stellenanzeigenRoute); // Neue Route
+app.use('/rezensionen', rezensionenRoute);
 
 // connect to db
 mongoose.connect("mongodb+srv://ADMIN:ADMIN@projectweb.98ouhea.mongodb.net/?retryWrites=true&w=majority")

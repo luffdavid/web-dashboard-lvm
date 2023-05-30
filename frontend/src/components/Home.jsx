@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditIcon from '@mui/icons-material/Edit';
-import AddStellenanzeigeForm from './EditPages/Stellenanzeigen';
+// import AddStellenanzeigeForm from './EditPages/Stellenanzeigen/Stellenanzeigen';
 import { Link, Navigate } from 'react-router-dom';
 const Home = () => {
   const [loggedOut, setLoggedOut] = useState(false);
@@ -36,17 +36,32 @@ const Home = () => {
 
       <div>
         <h3>Stellenanzeigen bearbeiten</h3> 
-        <Button  style={buttonStyle} endIcon={<AddCircleIcon />}> 
-        <Link to="/stellenanzeigen" >
-        Stellenanzeigen hinzufügen</Link></Button><br />
-        <Button style={buttonStyle} endIcon={<EditIcon />}>Stellenanzeigen bearbeiten</Button>
+        <Link to="/stellenanzeigen" style={{color:'black', textDecoration: 'none'}}>
+        <Button  style={buttonStyle} endIcon={<AddCircleIcon />} >  
+        Stellenanzeigen hinzufügen  </Button>
+        </Link>
+        <br />
+        <Link to="/stellenanzeigen" style={{color:'black', textDecoration: 'none'}}>
+        <Button  style={buttonStyle} endIcon={<EditIcon />} >  
+        Stellenanzeigen bearbeiten  </Button>
+        </Link>
       </div>
 
       <div>
         <h3>Rezensionen bearbeiten</h3>
-        <Button style={buttonStyle} endIcon={<AddCircleIcon />}>Rezensionen hinzufügen</Button> <br />
-        <Button style={buttonStyle} endIcon={<EditIcon />}>Rezensionen bearbeiten</Button>
+        <Link to="/rezensionen" style={{color:'black', textDecoration: 'none'}} >
+        <Button style={buttonStyle} endIcon={<AddCircleIcon />}>
+          Rezensionen hinzufügen
+        </Button>
+        </Link><br />
+        <Link to="/rezensionen" style={{color:'black', textDecoration: 'none'}} >
+        <Button style={buttonStyle} endIcon={<EditIcon />}>
+          Rezensionen bearbeiten
+        </Button>
+        </Link><br />
       </div>
+
+      {/* LOGOUT */}
       <Button variant="outlined" color="error" onClick={handleLogout}>Ausloggen</Button>
     </div>
   );
