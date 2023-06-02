@@ -17,7 +17,7 @@ const Rezensionen = () => {
  //GET Rezensionen
  const fetchRezensionen = async () => {
   try {
-    const response = await fetch('http://localhost:5000/rezensionen');
+    const response = await fetch('https://lvmranft-api-1x2-dayys3.onrender.com/rezensionen');
     const data = await response.json();
 setRezensionen(data);
 console.log(data)
@@ -35,7 +35,7 @@ console.log(data)
       text: text,
     };
     try {
-      const response = await fetch('http://localhost:5000/rezensionen', {
+      const response = await fetch('https://lvmranft-api-1x2-dayys3.onrender.com/rezensionen', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ console.log(data)
   //DELETE Rezension
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/rezensionen/${id}`, {
+      const response = await fetch(`https://lvmranft-api-1x2-dayys3.onrender.com/rezensionen/${id}`, {
         method: 'DELETE'
       });
   
@@ -90,7 +90,9 @@ console.log(data)
   return (
     <div style={{marginTop:'10vh'}}>
     {/* ADD Rezension */}
-  <h2>Rezension hinzufügen</h2>
+  <h2 style={{marginTop:'5%', textAlign:'center'}}>Rezension hinzufügen</h2> <br />
+  <i>Hinweis: Achten Sie darauf dass der Text der Bewertung nicht zu lange wird, <br />
+  da sonst der Text aus der Rezension "rausragt". Bei "Sterne / Bewertung" ein Zahl zwischen 1 und 5 eingeben ( = STERNE)</i>
   <form style={{width:'60%', marginLeft:'20%'}} onSubmit={handleAddRezension}>
         <TextField
           label="Name"
@@ -122,13 +124,11 @@ console.log(data)
   {rezensionen && rezensionen.map(rezension => (
     <Card key={rezension._id} sx={{ backgroundColor: 'white',  padding: 2, marginBottom: '10px', width:'70%', marginLeft:'15%' }}>
       {/* DELETE Rezension */}
-     
+      <Button color='error' style={{border:'1px solid red'}} onClick={() => handleDelete(rezension._id)}>Löschen</Button>
 
       <Typography variant="h6">{rezension.name}</Typography>
-      <Typography variant="h6"> <AccessTimeIcon /> {rezension.text}</Typography>
+      <Typography variant="h6">{rezension.text}</Typography>
       <Typography variant="h6">{rezension.bewertung}</Typography>
-    
-      <Button onClick={() => handleDelete(rezension._id)}>Löschen</Button>
     </Card>
 
   ))}
